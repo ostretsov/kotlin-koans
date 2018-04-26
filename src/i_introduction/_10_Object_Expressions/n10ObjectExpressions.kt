@@ -19,11 +19,8 @@ fun todoTask10(): Nothing = TODO(
 
 fun task10(): List<Int> {
     val arrayList = arrayListOf(1, 5, 2)
-    Collections.sort(arrayList, object : java.util.Comparator<Int> {
-        override fun compare(o1: Int?, o2: Int?): Int {
-            return (o2 ?: 0) - (o1 ?: 0);
-        }
-
+    Collections.sort(arrayList, object : Comparator<Int> {
+        override fun compare(o1: Int, o2: Int) = o2 - o1
     })
     return arrayList
 }
