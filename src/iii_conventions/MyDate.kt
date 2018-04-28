@@ -1,15 +1,19 @@
 package iii_conventions
 
-import com.sun.org.apache.xpath.internal.operations.Bool
 import iv_properties.toMillis
 
 data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int) : Comparable<MyDate> {
     override fun compareTo(other: MyDate): Int {
         return (this.toMillis()/1000).toInt() - (other.toMillis()/1000).toInt()
     }
+
+    operator fun rangeTo(other: MyDate): DateRange = DateRange(this, other)
+    operator fun plus(interval: TimeInterval): MyDate = addTimeIntervals(interval, 1)
+    operator fun plus(multipliedTimeInterval: MultipliedTimeInterval): MyDate = addTimeIntervals(multipliedTimeInterval.interval, multipliedTimeInterval.factor)
 }
 
-operator fun MyDate.rangeTo(other: MyDate): DateRange = DateRange(this, other)
+data class MultipliedTimeInterval(val interval: TimeInterval, val factor: Int)
+operator fun TimeInterval.times(i: Int): MultipliedTimeInterval = MultipliedTimeInterval(this, i)
 
 enum class TimeInterval {
     DAY,
