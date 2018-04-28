@@ -20,7 +20,7 @@ fun task41(): Nothing = TODO(
 )
 
 
-fun <T, C : MutableCollection<in T>, D: Collection<T>> D.partitionTo(first: C, second: C, f: (T) -> Boolean): Pair<C, C> {
+fun <T, C : MutableCollection<in T>> Collection<T>.partitionTo(first: C, second: C, f: (T) -> Boolean): Pair<C, C> {
     this.forEach { if (f(it)) first.add(it) else second.add(it) }
 
     return Pair(first, second)
